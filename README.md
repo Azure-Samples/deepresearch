@@ -48,7 +48,7 @@ The Azure Deep Research project provides the following features:
 * **Comprehensive Report Generation**: Creates well-structured research reports with illustrative images
 * **Responsive Design**: Fully responsive interface that works across devices
 
-![Research Process Workflow](https://via.placeholder.com/800x400?text=Research+Process+Workflow)
+![Research Process Workflow](./images/deep_researcher_architecture.png)
 
 ## Azure Account Requirements
 
@@ -121,7 +121,7 @@ Azure Deep Research uses a modern, cloud-based architecture:
 - **Research**: Tavily API for comprehensive web search
 - **State Management**: LangGraph for structured research workflow
 
-![Architecture Diagram](https://via.placeholder.com/800x400?text=Architecture+Diagram)
+![Architecture Diagram]()
 
 ## Usage
 
