@@ -11,11 +11,13 @@ products:
 - langgraph
 - deepseek
 urlFragment: deep-research
-name: Azure Deep Research - AI-powered comprehensive research assistant
+name: Azure Deep Research - Reasoning Research Assistant
 description: An AI-powered, reasoning research assistant that conducts comprehensive web research, analyzes and synthesizes information with images using DeepSeek R1, langchain-azure-ai and LangGraph. 
 ---
 
-# Azure Deep Research: AI-powered Research Assistant
+# Azure Deep Research: Reasoning Research Assistant
+
+This sample creates a reasoning, AI-powered reseacrher using [DeepSeek R1](https://learn.microsoft.com/en-us/azure/ai-foundry/model-inference/concepts/models#deepseek). Give it a topic and it will generate a web search query, gather web search results, summarise the results of web search, reflect on the summary to examine knowledge gaps, generate a new search query to address the gaps, search, and improve the summary for a user-defined number of cycles. It will provide the user a final markdown summary with all sources used. The sample uses [langchain-azure-ai](https://github.com/langchain-ai/langchain-azure), which allows us to access the [Azure AI Inference API](https://learn.microsoft.com/en-us/azure/ai-foundry/model-inference/overview) to use DeepSeek R1. [LangGraph](https://langchain-ai.github.io/langgraph/), Langchain's framework for building AI agents, is used to implement the reflection architecture. 
 
 ## Table of Contents
 
