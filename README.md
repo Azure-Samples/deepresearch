@@ -123,8 +123,6 @@ Azure Deep Research uses a modern, cloud-based architecture:
 - **Research**: Tavily API for comprehensive web search
 - **State Management**: LangGraph for structured research workflow
 
-![Architecture Diagram]()
-
 ## Usage
 
 1. Enter your research topic in the input field
