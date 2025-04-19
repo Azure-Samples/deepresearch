@@ -58,7 +58,7 @@ The Azure Deep Research project provides the following features:
 
 * **Azure account**. If you're new to Azure, [get an Azure account for free](https://azure.microsoft.com/free/cognitive-search/) and you'll get some free Azure credits to get started.
 * **Azure subscription with access enabled for the Azure OpenAI Service**. You'll need an Azure subscription with permission to access the [DeepSeek-R1](https://azure.microsoft.com/en-us/products/ai-services/openai-service/) model.
-* **Tavily API key** for web research capabilities.
+* **Tavily API key** for web research capabilities. You can get an API Key [here](https://app.tavily.com/home), with 1000 free credits
 
 ## Getting Started
 
