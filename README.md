@@ -35,7 +35,7 @@ description: An AI-powered, reasoning research assistant that conducts comprehen
 - [License](#license)
 
 ![research-process](./images/researcher-process.png)
-![research-process](./images/researcher-report.png)
+![research-process](./images/research-report-image.png)
 
 
 ## Features
