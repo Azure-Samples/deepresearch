@@ -15,9 +15,7 @@ name: Azure Deep Research - AI-powered comprehensive research assistant
 description: An AI-powered, reasoning research assistant that conducts comprehensive web research, analyzes and synthesizes information with images using DeepSeek R1, langchain-azure-ai and LangGraph. 
 ---
 
-# Azure Deep Research: AI-powered Comprehensive Research Assistant
-
-![Preview of Azure Deep Research tool](https://via.placeholder.com/800x400?text=Azure+Deep+Research+Preview)
+# Azure Deep Research: AI-powered Research Assistant
 
 ## Table of Contents
 
@@ -35,6 +33,11 @@ description: An AI-powered, reasoning research assistant that conducts comprehen
 - [Contributing](#contributing)
 - [Code of Conduct](#code-of-conduct)
 - [License](#license)
+
+![research-process](./images/research-process.png)
+![research-process](./images/research-report.png)
+![research-process](./images/model-thoughts.png)
+
 
 ## Features
 
