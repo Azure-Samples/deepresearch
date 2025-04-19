@@ -34,9 +34,8 @@ description: An AI-powered, reasoning research assistant that conducts comprehen
 - [Code of Conduct](#code-of-conduct)
 - [License](#license)
 
-![research-process](./images/research-process.png)
-![research-process](./images/research-report.png)
-![research-process](./images/model-thoughts.png)
+![research-process](./images/researcher-process.png)
+![research-process](./images/researcher-report.png)
 
 
 ## Features
