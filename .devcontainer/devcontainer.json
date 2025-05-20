@@ -15,7 +15,7 @@
             ]
         }
     },
-    "postCreateCommand": "python3 -m pip install -r requirements.txt",
+    "postCreateCommand": "python3 -m pip install -r ./app/requirements.txt",
     "remoteUser": "vscode",
     "hostRequirements": {
         "memory": "8gb"

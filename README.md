@@ -10,12 +10,17 @@ products:
 - langchain-azure-ai
 - langgraph
 - deepseek
-urlFragment: deep-research
+urlFragment: deepresearch
 name: Azure Deep Research - Reasoning Research Assistant
-description: An AI-powered, reasoning research assistant that conducts comprehensive web research, analyzes and synthesizes information with images using DeepSeek R1, langchain-azure-ai and LangGraph. 
+description: Reasoning research assistant using DeepSeek R1, langchain-azure-ai and LangGraph. 
 ---
 
+<!-- YAML front-matter schema: https://review.learn.microsoft.com/en-us/help/contribute/samples/process/onboarding?branch=main#supported-metadata-fields-for-readmemd -->
+
 # Azure Deep Research: Reasoning Research Assistant
+
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/Azure-Samples/deepresearch) [![Open in Dev Containers](https://img.shields.io/static/v1?style=for-the-badge&label=Dev%20Containers&message=Open&color=blue&logo=visualstudiocode)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/azure-samples/deepresearch) 
+
 
 This sample creates a reasoning, AI-powered reseacrher using [DeepSeek R1](https://learn.microsoft.com/en-us/azure/ai-foundry/model-inference/concepts/models#deepseek). Give it a topic and it will generate a web search query, gather web search results, summarise the results of web search, reflect on the summary to examine knowledge gaps, generate a new search query to address the gaps, search, and improve the summary for a user-defined number of cycles. It will provide the user a final markdown summary with all sources used. The sample uses [langchain-azure-ai](https://github.com/langchain-ai/langchain-azure), which allows us to access the [Azure AI Inference API](https://learn.microsoft.com/en-us/azure/ai-foundry/model-inference/overview) to use DeepSeek R1. [LangGraph](https://langchain-ai.github.io/langgraph/), Langchain's framework for building AI agents, is used to implement the reflection architecture. 
 
@@ -24,17 +29,21 @@ This sample creates a reasoning, AI-powered reseacrher using [DeepSeek R1](https
 - [Features](#features)
 - [Azure Account Requirements](#azure-account-requirements)
 - [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Local Development](#local-development)
-  - [Environment Setup](#environment-setup)
+    - [GitHub Codespaces](#github-codespaces)
+    - [VS Code Dev Containers](#vs-code-dev-containers)
+    - [Local environment](#local-environment)
+      - [Prerequisites](#prerequisites)
+      - [Initializing the project](#initializing-the-project)
+- [Deployment](#deployment)
+- [Testing the sample](#testing-the-sample)
 - [Architecture](#architecture)
 - [Usage](#usage)
 - [Technical Implementation](#technical-implementation)
-- [Security and Compliance](#security-and-compliance)
 - [Resources](#resources)
 - [Contributing](#contributing)
 - [Code of Conduct](#code-of-conduct)
 - [License](#license)
+
 
 ![research-process](./images/researcher-process.png)
 ![research-process](./images/research-report-image.png)
@@ -62,61 +71,98 @@ The Azure Deep Research project provides the following features:
 
 ## Getting Started
 
-### Prerequisites
+You have a few options for setting up this project.
+The easiest way to get started is GitHub Codespaces, since it will setup all the tools for you, but you can also [set it up locally](#local-environment).
 
+### GitHub Codespaces
+
+1. You can run this template virtually by using GitHub Codespaces. The button will open a web-based VS Code instance in your browser:
+   
+    [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/Azure-Samples/deepresearch)
+
+2. Open a terminal window.
+3. Sign in to your Azure account:
+
+    Login with Azure Developer CLI 
+
+    ```shell
+    azd auth login
+    ```
+
+4. Provision the resources and deploy the code:
+
+    ```shell
+    azd up
+    ```
+
+    You will be prompted to select some details about your deployed resources, including location. As a reminder we recommend `Sweden Central` as the region for this project.
+    Once the deployment is complete you should be able to scroll up in your terminal and see the url that the app has been deployed to. It should look similar to this 
+    `Ingress Updated. Access your app at https://env-name.codespacesname.eastus2.azurecontainerapps.io/`. Navigate to the link to try out the app straight away! 
+
+5. Once the above steps are completed you can [test the sample](#testing-the-sample). 
+
+### VS Code Dev Containers
+
+A related option is VS Code Dev Containers, which will open the project in your local VS Code using the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers):
+
+1. Start Docker Desktop (install it if not already installed)
+2. Open the project:
+   
+    [![Open in Dev Containers](https://img.shields.io/static/v1?style=for-the-badge&label=Dev%20Containers&message=Open&color=blue&logo=visualstudiocode)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/Azure-Samples/deepresearch.git)
+
+3. In the VS Code window that opens, once the project files show up (this may take several minutes), open a terminal window.
+
+4. Install required packages:
+
+   ```shell
+    #activate virtual env
+    python -m venv .venv 
+    .\.venv\Scripts\activate #(use source ./venv/bin/activate for mac) 
+    ```
+
+    ```shell
+    cd app
+    pip install -r requirements.txt
+    ```
+
+5. Once you've completed these steps jump to [deployment](#deployment). 
+
+### Local environment
+
+#### Prerequisites
+
+* [Azure Developer CLI (azd)](https://aka.ms/install-azd)
 * [Python 3.10+](https://www.python.org/downloads/)
-* [FastAPI](https://fastapi.tiangolo.com/)
-* [Node.js and npm](https://nodejs.org/) (for frontend dependencies)
+* [Docker Desktop](https://www.docker.com/products/docker-desktop/)
 * [Git](https://git-scm.com/downloads)
 
-### Local Development
+**Note for Windows users:** If you are not using a container to run this sample, our hooks are currently all shell scripts. To provision this sample correctly while we work on updates we recommend using [git bash](https://gitforwindows.org/). 
 
-1. Clone the repository:
+#### Initializing the project
 
-```bash
-git clone https://github.com/Azure-Samples/deepresearch.git
-cd deepresearch
-```
+1. Create a new folder and switch to it in the terminal, then run this command to download the project code:
 
-2. Create and activate a virtual environment:
+    ```shell
+    azd init -t deepresearch
+    ```
+    Note that this command will initialize a git repository, so you do not need to clone this repository.
 
-```bash
-python -m venv deep_research
-deep_research\Scripts\activate # On Mac: source deep_research/bin/activate 
-```
+2. Install required packages:
 
-3. Install the required Python packages (if running in Codespaces or the dev container this is already done for you):
+    ```shell
+    #activate virtual env
+    python -m venv .venv 
+    .\.venv\Scripts\activate #(use source ./venv/bin/activate for mac) 
+    ```
 
-```bash
-pip install -r requirements.txt
-```
+    ```shell
+    cd app
+    pip install -r requirements.txt
+    ```
 
-### Environment Setup
+## Deployment
 
-1. Create a `.env` file in the project root and add your API keys:
-
-```
-AZURE_INFERENCE_ENDPOINT=your_azure_ai_endpoint
-AZURE_AI_API_KEY=your_azure_ai_key
-AZURE_DEEPSEEK_DEPLOYMENT=you_azure_deployment_name
-TAVILY_API_KEY=your_tavily_api_key
-```
-
-2. Start the FastAPI server:
-
-```bash
-uvicorn app.main:app --reload
-```
-
-3. Open your browser and navigate to:
-
-```
-http://localhost:8000
-```
-
-## Deploy your App to Azure 
-
-Once you've opened the project in Codespaces, Dev Containers, or locally you can deploy it to Azure.
+Once you've opened the project in [Codespaces](#github-codespaces), [Dev Containers](#vs-code-dev-containers), or [locally](#local-environment), you can deploy it to Azure.
 
 1. Sign in to your Azure account. You'll need to login to both the Azure Developer CLI and Azure CLI:
 
@@ -135,6 +181,41 @@ Once you've opened the project in Codespaces, Dev Containers, or locally you can
     ```
 
     This project uses `DeepSeek R1` which may not be available in all Azure regions. Check for [up-to-date region availability](https://learn.microsoft.com/azure/ai-services/openai/concepts/models#standard-deployment-model-availability) and select a region during deployment accordingly. We recommend using Sweden Central for this project.
+
+
+## Testing the sample
+
+You can also test out the sample locally and customize the application with your own code. 
+
+To test the sample: 
+
+1. First navigate to the app folder 
+    ```shell
+    cd ./app
+    ```
+
+2. Make sure the required Python pacakages are installed:
+
+    ```bash
+    #activate virtual env
+    python -m venv .venv 
+    .\.venv\Scripts\activate #(use source ./venv/bin/activate for mac) 
+
+    pip install -r requirements.txt
+    ```
+
+3. Run the FastAPI server and navigate to the app:
+
+    ```bash
+    uvicorn app.main:app --reload
+    ```
+
+    Open your browser and navigate to:
+
+    ```
+    http://localhost:8000
+    ```
+    
 
 ## Architecture
 
@@ -166,14 +247,6 @@ Azure Deep Research uses a multi-step pipeline to deliver comprehensive research
 6. **Report Generation**: A final comprehensive report with images is created
 
 The implementation leverages LangGraph for orchestrating the research workflow and WebSockets for real-time communication between the client and server.
-
-## Security and Compliance
-
-This project follows Azure security best practices:
-
-- Input validation to prevent injection attacks
-- Safe handling of API keys through environment variables
-- No storage of personal data or research queries
 
 ## Resources
 
