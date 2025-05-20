@@ -1,0 +1,15 @@
+azure-ai-inference==1.0.0b6
+langchain-azure-ai --only-binary :all:
+langgraph
+python-dotenv
+markdownify
+tavily-python
+fastapi
+uvicorn
+websockets
+pydantic
+python-multipart
+jinja2
+rich_click
+azure-mgmt-cognitiveservices
+ipython

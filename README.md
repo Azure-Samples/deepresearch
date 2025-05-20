@@ -57,7 +57,7 @@ The Azure Deep Research project provides the following features:
 **IMPORTANT:** In order to deploy and run this project, you'll need:
 
 * **Azure account**. If you're new to Azure, [get an Azure account for free](https://azure.microsoft.com/free/cognitive-search/) and you'll get some free Azure credits to get started.
-* **Azure subscription with access enabled for the Azure OpenAI Service**. You'll need an Azure subscription with permission to access the [DeepSeek-R1](https://azure.microsoft.com/en-us/products/ai-services/openai-service/) model.
+* **Azure subscription with access enabled for AI Foundry**. You'll need an Azure subscription with permission to access the [DeepSeek-R1](https://azure.microsoft.com/en-us/products/ai-services/openai-service/) model.
 * **Tavily API key** for web research capabilities. You can get an API Key [here](https://app.tavily.com/home), with 1000 free credits
 
 ## Getting Started
@@ -74,18 +74,18 @@ The Azure Deep Research project provides the following features:
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/yourusername/deep-research.git
-cd deep-research
+git clone https://github.com/Azure-Samples/deepresearch.git
+cd deepresearch
 ```
 
 2. Create and activate a virtual environment:
 
 ```bash
 python -m venv deep_research
-source deep_research/bin/activate  # On Windows: deep_research\Scripts\activate
+deep_research\Scripts\activate # On Mac: source deep_research/bin/activate 
 ```
 
-3. Install the required Python packages:
+3. Install the required Python packages (if running in Codespaces or the dev container this is already done for you):
 
 ```bash
 pip install -r requirements.txt
@@ -96,8 +96,9 @@ pip install -r requirements.txt
 1. Create a `.env` file in the project root and add your API keys:
 
 ```
-AZURE_OPENAI_ENDPOINT=your_azure_openai_endpoint
-AZURE_OPENAI_API_KEY=your_azure_openai_key
+AZURE_INFERENCE_ENDPOINT=your_azure_ai_endpoint
+AZURE_AI_API_KEY=your_azure_ai_key
+AZURE_DEEPSEEK_DEPLOYMENT=you_azure_deployment_name
 TAVILY_API_KEY=your_tavily_api_key
 ```
 
@@ -113,13 +114,35 @@ uvicorn app.main:app --reload
 http://localhost:8000
 ```
 
+## Deploy your App to Azure 
+
+Once you've opened the project in Codespaces, Dev Containers, or locally you can deploy it to Azure.
+
+1. Sign in to your Azure account. You'll need to login to both the Azure Developer CLI and Azure CLI:
+
+    i. First with Azure Developer CLI 
+
+    ```shell
+    azd auth login
+    ```
+
+    This will create a folder under `.azure/` in your project to store the configuration for this deployment. You may have multiple azd environments if desired.
+
+2. Provision the resources and deploy the code:
+
+    ```shell
+    azd up
+    ```
+
+    This project uses `DeepSeek R1` which may not be available in all Azure regions. Check for [up-to-date region availability](https://learn.microsoft.com/azure/ai-services/openai/concepts/models#standard-deployment-model-availability) and select a region during deployment accordingly. We recommend using Sweden Central for this project.
+
 ## Architecture
 
 Azure Deep Research uses a modern, cloud-based architecture:
 
 - **Backend**: FastAPI server with WebSocket support for real-time communication
 - **Frontend**: HTML, CSS, and JavaScript with responsive design
-- **AI Models**: Azure OpenAI DeepSeek-R1 and GPT-4o for advanced reasoning
+- **AI Models**: Azure OpenAI DeepSeek-R1 for advanced reasoning
 - **Research**: Tavily API for comprehensive web search
 - **State Management**: LangGraph for structured research workflow
 
