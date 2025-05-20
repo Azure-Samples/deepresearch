@@ -15,10 +15,11 @@ tracemalloc.start()
 
 # Import deep research functionality
 from langchain_azure_ai.chat_models import AzureAIChatCompletionsModel
+from azure.core.credentials import AzureKeyCredential
 from langchain_core.messages import HumanMessage, SystemMessage
 from langgraph.graph import StateGraph, START, END
 
-from prompts import query_writer_instructions, summarizer_instructions, reflection_instructions, get_current_date, web_research_instructions
+from prompts import query_writer_instructions, summarizer_instructions, reflection_instructions, get_current_date
 from formatting import deduplicate_and_format_sources, format_sources
 from states import SummaryState, SummaryStateInput, SummaryStateOutput
 
@@ -41,11 +42,18 @@ active_connections = {}
 images = []
 
 # Initialize Azure AI models
+endpoint = os.getenv("AZURE_INFERENCE_ENDPOINT")
+model_name = os.getenv("AZURE_DEEPSEEK_DEPLOYMENT")
+key = os.getenv("AZURE_AI_API_KEY")
+
+# Set up the AI model
 deep_seek_model = AzureAIChatCompletionsModel(
-    endpoint= os.getenv("AZURE-AI-ENDPOINT"),
-    credential=os.getenv("AZURE-AI-API-KEY"),
-    model_name="DeepSeek-R1",
+    endpoint=endpoint,
+    credential=AzureKeyCredential(key),
+    model_name=model_name,  
 )
+
+
 
 # Helper function to strip thinking tokens
 def strip_thinking_tokens(text: str):
